@@ -6,11 +6,9 @@ module tape;
 
 schedule sw_status {
     //0-1 * * * * 0;
-    0-10 * * * * 1;
-    11-20 * * * * 0;
-    21-30 * * * * 1;
-    31-40 * * * * 0;
-    41-59 * * * * 1;
+    0-2 * * * * 1;
+    3-56 * * * * 0;
+    57-59 * * * * 1;
 }
 
 clock {
@@ -20,6 +18,13 @@ clock {
 }
 
 module assert;
+
+module connection;
+object helics_msg {
+    name gld_hlc_conn;
+    parent load_switch;
+    configure switch_test_02.json;
+}
 
 
 module reliability {

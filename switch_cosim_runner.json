@@ -1,0 +1,18 @@
+{
+    "broker": true,
+    "federates":[
+        {
+            "directory":".",
+            "exec":"python3 switch_controller.py -c 1b",
+            "host":"localhost",
+            "name":"sw_controller"
+        },
+        {
+            "directory":".",
+            "exec":"gridlabd.sh main.glm",
+            "host":"localhost",
+            "name":"sw_GridLABD"
+        }
+    ],
+    "name":"switch-T-D-Cosimulation-HELICSRunner"
+}
