@@ -2,6 +2,61 @@ module powerflow {
     solver_method NR;
     NR_iteration_limit 100;  // Increase if needed
 };
+module tape;
+
+schedule sw_status {
+    //0-1 * * * * 0;
+    0-10 * * * * 1;
+    11-20 * * * * 0;
+    21-30 * * * * 1;
+    31-40 * * * * 0;
+    41-59 * * * * 1;
+}
+
+clock {
+    timezone PST+8PDT;
+    starttime '2009-01-01 00:00:00';
+    stoptime '2009-01-01 01:00:00';
+}
+
+module assert;
+
+
+module reliability {
+	maximum_event_length 18000;	//Maximum length of events in seconds (manual events are excluded from this limit)
+	report_event_log true;
+	}
+
+
+object fault_check {				//Fault check object - required to make powerflow properly handle faults
+	name test_fault;
+	check_mode ONCHANGE;			//Fault check mode - should be in ONCHANGE - reliability will change it
+	eventgen_object testgen_sw;		//Link to eventgen object - used to handle "unscheduled" events - fuses and switch openings
+	output_filename testout.txt;	//"unsupported node" dump file
+};
+
+object metrics {
+	name testmetrics;
+	report_file testmetrics.txt;						//Name of the output file
+	module_metrics_object pwrmetrics;					//Module-specific "metrics" object - a powerflow metrics object is specified here
+	metrics_of_interest "SAIFI,SAIDI,CAIDI,ASAI,MAIFI";	//Metrics to output into the report file
+	customer_group "groupid=METERTEST";					//Search criteria for determining "customers" of the system - similar to collectors - this group is both three-phase and triplex meters
+	metric_interval 5 h; 								//Interval to run metrics - (separate from "simulation-long" metrics) - set to 0 for no metric updates (defaults to no interval updates)
+	report_interval 5 h;								//Interval to dump metric updates to the output file.
+}
+
+//Manual object - switch
+object eventgen {
+	name testgen_sw;
+	parent testmetrics;
+	fault_type "SW-AC";	//Phases A and C will switch
+	manual_outages "load_switch,2009-01-01 00:00:01,2009-01-01 01:00:59";
+}
+
+object power_metrics {
+	name pwrmetrics;
+	base_time_value 60.0;
+	}
 
 object node {
     name feeder_head;
@@ -37,7 +92,7 @@ object meter {
         name substation_recorder;
         file substation_data.csv;
         interval 60;
-        property measured_voltage_A
+        property measured_voltage_A, measured_current_A, measured_power_A,measured_voltage_B, measured_current_B, measured_power_B,measured_voltage_C, measured_current_C, measured_power_C;
     };
 }
 
@@ -85,17 +140,38 @@ object meter {
         name load_recorder;
         file load_data.csv;
         interval 60;
-        property measured_voltage_A
-        };
+        property measured_voltage_A, measured_current_A, measured_power_A,measured_voltage_B, measured_current_B, measured_power_B,measured_voltage_C, measured_current_C, measured_power_C;    };
 }
 
+// Capacitor Object
+object capacitor {
+	phases ABC;				
+	name sw_capacitor;
+	pt_phase ABC;				
+	parent load_meter;
+	phases_connected ABC;		
+	control VOLT;
+	voltage_set_low 390.0;
+	voltage_set_high 405.0;
+	capacitor_A 1000;
+	capacitor_B 1000; //10.0 kVAr;
+	capacitor_C 1000; //10.0 kVAr;
+	control_level INDIVIDUAL;
+	switchA OPEN;
+	switchB OPEN;
+	switchC OPEN;
+	time_delay 2.0;
+	dwell_time 10;
+	nominal_voltage 400;
+}
 
 object switch {
     name load_switch;
     phases ABC;
     from load_meter;
     to feeder_load;
-    status CLOSED;  // Explicitly set initial status
+    //status OPEN;  // Explicitly set initial status
+    status sw_status;  // Apply the schedule
     object recorder {
         name sw_recorder;
         file sw_data.csv;
