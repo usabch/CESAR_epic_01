@@ -6,11 +6,9 @@ module tape;
 
 schedule sw_status {
     //0-1 * * * * 0;
-    0-10 * * * * 1;
-    11-20 * * * * 0;
-    21-30 * * * * 1;
-    31-40 * * * * 0;
-    41-59 * * * * 1;
+    0-2 * * * * 1;
+    3-56 * * * * 0;
+    57-59 * * * * 1;
 }
 
 clock {
@@ -21,6 +19,13 @@ clock {
 
 module assert;
 
+module connection;
+object helics_msg {
+    name gld_hlc_conn;
+    parent load_switch;
+    configure switch_test_02.json;
+}
+
 
 module reliability {
 	maximum_event_length 18000;	//Maximum length of events in seconds (manual events are excluded from this limit)
@@ -30,6 +35,7 @@ module reliability {
 
 object fault_check {				//Fault check object - required to make powerflow properly handle faults
 	name test_fault;
+    strictly_radial false;
 	check_mode ONCHANGE;			//Fault check mode - should be in ONCHANGE - reliability will change it
 	eventgen_object testgen_sw;		//Link to eventgen object - used to handle "unscheduled" events - fuses and switch openings
 	output_filename testout.txt;	//"unsupported node" dump file
@@ -49,8 +55,8 @@ object metrics {
 object eventgen {
 	name testgen_sw;
 	parent testmetrics;
-	fault_type "SW-AC";	//Phases A and C will switch
-	manual_outages "load_switch,2009-01-01 00:00:01,2009-01-01 01:00:59";
+	fault_type "SW-ABC";	//Phases A,B and C will switch
+	manual_outages "load_switch,2009-01-01 00:00:00,2009-01-01 01:00:00";
 }
 
 object power_metrics {
