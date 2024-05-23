@@ -8,7 +8,6 @@ import scipy.io as spio
 from pypower.api import case118, ppoption, runpf, runopf
 import math
 import numpy
-import matplotlib.pyplot as plt
 import time
 import helics as h
 import random
@@ -67,14 +66,11 @@ if __name__ == "__main__":
 
 
     plotting = False ## Adjust this flag to visulaize the control actions aas the simulation progresses
-    hours = 24
+    hours = 1
     total_inteval = int(60 * 60 * hours)
     grantedtime = -1
-    update_interval = 5 * 60 ## Adjust this to change EV update interval
-    feeder_limit_upper = 4 * (1000 * 1000) ## Adjust this to change upper limit to trigger EVs
-    feeder_limit_lower = 2.7 * (1000 * 1000) ## Adjust this to change lower limit to trigger EVs
+    update_interval = 30 #1 * 60 ## Adjust this to change EV update interval
     k = 0
-    EV_data = {}
     time_sim = []
     feeder_real_power = []
 
@@ -83,18 +79,19 @@ if __name__ == "__main__":
     for t in range(0, total_inteval, update_interval):
 
         ############################   Publishing Voltage to GridLAB-D #######################################################
-        switch_state = "CLOSED"
-        logger.info("{}: switch state val = {} ".format(federate_name, switch_state))
-        for i in range(0, pubkeys_count):
-        #for i in range(0, 1):
-            pub = pubid["m{}".format(i)]
-            if i == 0:
-            	status = h.helicsPublicationPublishString(pub, switch_state)
-            else:
-            	status = h.helicsPublicationPublishString(pub, test_val)
-            	logger.info("..........{}: test_val".format(test_val))
-            	test_val= test_val+ 2.505
-        # status = h.helicsEndpointSendEventRaw(epid, "fixed_price", 10, t)
+        if ((grantedtime% 300 ==0) and (grantedtime >0)): #close switch every 5 min
+            switch_state = "CLOSED"
+            logger.info("{}: switch state val = {} ".format(federate_name, switch_state))
+            for i in range(0, pubkeys_count):
+            #for i in range(0, 1):
+                pub = pubid["m{}".format(i)]
+                if i == 0:
+                    status = h.helicsPublicationPublishString(pub, switch_state)
+                else:
+                    status = h.helicsPublicationPublishString(pub, test_val)
+                    logger.info("..........{}: test_val".format(test_val))
+                    test_val= test_val+ 2.505
+            # status = h.helicsEndpointSendEventRaw(epid, "fixed_price", 10, t)
 
         logger.info("{} - {}".format(grantedtime, t))
         while grantedtime < t:
