@@ -35,6 +35,7 @@ module reliability {
 
 object fault_check {				//Fault check object - required to make powerflow properly handle faults
 	name test_fault;
+    strictly_radial false;
 	check_mode ONCHANGE;			//Fault check mode - should be in ONCHANGE - reliability will change it
 	eventgen_object testgen_sw;		//Link to eventgen object - used to handle "unscheduled" events - fuses and switch openings
 	output_filename testout.txt;	//"unsupported node" dump file
@@ -54,8 +55,8 @@ object metrics {
 object eventgen {
 	name testgen_sw;
 	parent testmetrics;
-	fault_type "SW-AC";	//Phases A and C will switch
-	manual_outages "load_switch,2009-01-01 00:00:01,2009-01-01 01:00:59";
+	fault_type "SW-ABC";	//Phases A,B and C will switch
+	manual_outages "load_switch,2009-01-01 00:00:00,2009-01-01 01:00:00";
 }
 
 object power_metrics {

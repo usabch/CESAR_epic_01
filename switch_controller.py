@@ -73,14 +73,17 @@ if __name__ == "__main__":
     k = 0
     time_sim = []
     feeder_real_power = []
+    switch_state = "CLOSED"
 
     #########################################   Starting Co-simulation  ####################################################
 
     for t in range(0, total_inteval, update_interval):
 
         ############################   Publishing Voltage to GridLAB-D #######################################################
-        if ((grantedtime% 300 ==0) and (grantedtime >0)): #close switch every 5 min
+        if (((grantedtime% 300 ==0) or (grantedtime% 300 ==180))and (grantedtime >0)): #close switch every 5 min
             switch_state = "CLOSED"
+            if (grantedtime% 300 ==180):
+                switch_state = "OPEN"
             logger.info("{}: switch state val = {} ".format(federate_name, switch_state))
             for i in range(0, pubkeys_count):
             #for i in range(0, 1):
@@ -93,6 +96,8 @@ if __name__ == "__main__":
                     test_val= test_val+ 2.505
             # status = h.helicsEndpointSendEventRaw(epid, "fixed_price", 10, t)
 
+            logger.info("switch state => {}".format(switch_state))
+
         logger.info("{} - {}".format(grantedtime, t))
         while grantedtime < t:
             grantedtime = h.helicsFederateRequestTime(fed, t)
@@ -102,10 +107,10 @@ if __name__ == "__main__":
         for i in range(0, subkeys_count):
             sub = subid["m{}".format(i)]
             demand = h.helicsInputGetComplex(sub)
-            rload = demand.real;
-            iload = demand.imag;
+            rload = demand.real *1000;
+            iload = demand.imag * 1000;
         logger.info("{}: Federate Granted Time = {}".format(federate_name,grantedtime))
-        logger.info("{}: Load power consumption = {} kW".format(federate_name, complex(round(rload,2), round(iload,2)) / 1000))
+        logger.info("{}: Load current consumption = {} Amps".format(federate_name, complex(round(rload,2), round(iload,2)) / 1000))
         # print(voltage_plot,real_demand)
 
      
