@@ -1,0 +1,125 @@
+module powerflow {
+    solver_method NR;
+    NR_iteration_limit 100;  // Increase if needed
+};
+
+object node {
+    name feeder_head;
+    bustype SWING;
+    phases ABCN;
+    nominal_voltage 7200; //132790;
+}
+
+object transformer {
+    name substation_transformer;
+    from feeder_head;
+    to substation_meter;
+    phases ABCN;
+    configuration substation_transformer_config;
+}
+
+object transformer_configuration {
+    name substation_transformer_config;
+    connect_type WYE_WYE;
+    install_type PADMOUNT;
+    primary_voltage 7200; //132790;
+    secondary_voltage 400; //7216;
+    power_rating 8400;  // Adjusted rating
+    impedance 0.00033+0.0022j;
+}
+
+object meter {
+    groupid METERTEST;
+    name substation_meter;
+    phases ABCN;
+    nominal_voltage 400; //7216.88;
+    object recorder {
+        name substation_recorder;
+        file substation_data.csv;
+        interval 60;
+        property measured_voltage_A
+    };
+}
+
+object overhead_line {
+    name feeder_backbone;
+    phases ABCN;
+    from substation_meter;
+    to load_meter;
+    length 10000;
+    configuration line_configuration_1;
+}
+
+object line_configuration {
+    name line_configuration_1;
+    conductor_A overhead_line_conductor_1;
+    conductor_B overhead_line_conductor_1;
+    conductor_C overhead_line_conductor_1;
+    conductor_N overhead_line_conductor_1;
+    spacing line_spacing_1;
+}
+
+object line_spacing {
+    name line_spacing_1;
+    distance_AB 57.6 in;
+    distance_BC 57.6 in;
+    distance_AC 57.6 in;
+    distance_AN 51.6 in;
+    distance_BN 51.6 in;
+    distance_CN 51.6 in;
+}
+
+object overhead_line_conductor {
+    name overhead_line_conductor_1;
+    rating.summer.continuous 256.0;  // Increase if needed
+    geometric_mean_radius 0.01200 ft;
+    resistance 0.1;
+}
+
+object meter {
+    groupid METERTEST;
+    name load_meter;
+    phases ABCN;
+    nominal_voltage 400; //7216.88;
+    object recorder {
+        name load_recorder;
+        file load_data.csv;
+        interval 60;
+        property measured_voltage_A
+        };
+}
+
+
+object switch {
+    name load_switch;
+    phases ABC;
+    from load_meter;
+    to feeder_load;
+    status CLOSED;  // Explicitly set initial status
+    object recorder {
+        name sw_recorder;
+        file sw_data.csv;
+        interval 60;
+        property status;
+    };
+}
+
+object load {
+    name feeder_load;
+    nominal_voltage 400; //7216.88;
+    phases ABC;
+    constant_power_A 25-5j; //3454.81+1583.42j;  // Reduced load values
+    constant_power_B 25+5j;
+    constant_power_B 25+10j;
+}
+
+
+object load {
+    name feeder_load02;
+    parent load_meter;
+    nominal_voltage 400; //7216.88;
+    phases ABC;
+    constant_power_A 1400+350j;  // Reduced load values
+    constant_power_B 1400+350j;  // Reduced load values
+    constant_power_C 1400+350j;  // Reduced load values
+}
