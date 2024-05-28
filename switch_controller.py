@@ -18,6 +18,38 @@ logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
+################################
+import requests
+import json
+import time
+import threading
+
+# URLs for getting device status and controlling the device
+url_status = "https://api.smartthings.com/v1/devices/2f20efea-b413-4fd3-b8c1-45279fc412ce/status"
+url_control = "https://api.smartthings.com/v1/devices/2f20efea-b413-4fd3-b8c1-45279fc412ce/commands"
+
+status = ""
+switch_status = ""
+
+headers = {
+    'Authorization': 'Bearer 0dc70a10-bda8-4d39-a1ee-67dc45e91595',
+    'Content-Type': 'application/json'
+}
+
+def get_device_status():
+    response = requests.get(url_status, headers=headers)
+    data = response.json()
+    # Adjust the following line based on the actual structure of the JSON response
+    status = data['components']['main']['switch']['switch']['value']
+
+    if status == "on":
+        switch_status = "CLOSED"
+    elif status == "off":
+        switch_status = "OPEN"
+
+    return switch_status
+
+#################################
 
 
 def destroy_federate(fed):
@@ -80,10 +112,10 @@ if __name__ == "__main__":
     for t in range(0, total_inteval, update_interval):
 
         ############################   Publishing Voltage to GridLAB-D #######################################################
-        if (((grantedtime% 300 ==0) or (grantedtime% 300 ==180))and (grantedtime >0)): #close switch every 5 min
-            switch_state = "CLOSED"
-            if (grantedtime% 300 ==180): #to turn it open after 3min
-                switch_state = "OPEN"
+        #if (((grantedtime% 300 ==0) or (grantedtime% 300 ==180))and (grantedtime >0)): #close switch every 5 min
+        #    switch_state = "CLOSED"
+        if (grantedtime% 30 ==0): #update status very 30sec
+            switch_state = get_device_status()
             logger.info("{}: switch state val = {} ".format(federate_name, switch_state))
             for i in range(0, pubkeys_count):
             #for i in range(0, 1):
