@@ -149,35 +149,14 @@ object meter {
         property measured_voltage_A, measured_current_A, measured_power_A,measured_voltage_B, measured_current_B, measured_power_B,measured_voltage_C, measured_current_C, measured_power_C;    };
 }
 
-// Capacitor Object
-object capacitor {
-	phases ABC;				
-	name sw_capacitor;
-	pt_phase ABC;				
-	parent load_meter;
-	phases_connected ABC;		
-	control VOLT;
-	voltage_set_low 390.0;
-	voltage_set_high 405.0;
-	capacitor_A 1000;
-	capacitor_B 1000; //10.0 kVAr;
-	capacitor_C 1000; //10.0 kVAr;
-	control_level INDIVIDUAL;
-	switchA OPEN;
-	switchB OPEN;
-	switchC OPEN;
-	time_delay 2.0;
-	dwell_time 10;
-	nominal_voltage 400;
-}
 
 object switch {
     name load_switch;
     phases ABC;
     from load_meter;
     to feeder_load;
-    //status OPEN;  // Explicitly set initial status
-    status sw_status;  // Apply the schedule
+    status CLOSED;  // Explicitly set initial status
+    //status sw_status;  // Apply the schedule
     object recorder {
         name sw_recorder;
         file sw_data.csv;

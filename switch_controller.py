@@ -82,7 +82,7 @@ if __name__ == "__main__":
         ############################   Publishing Voltage to GridLAB-D #######################################################
         if (((grantedtime% 300 ==0) or (grantedtime% 300 ==180))and (grantedtime >0)): #close switch every 5 min
             switch_state = "CLOSED"
-            if (grantedtime% 300 ==180):
+            if (grantedtime% 300 ==180): #to turn it open after 3min
                 switch_state = "OPEN"
             logger.info("{}: switch state val = {} ".format(federate_name, switch_state))
             for i in range(0, pubkeys_count):
