@@ -43,7 +43,7 @@ def check_and_update_status(time):
         elif (time % 600 == 301):
             logger.info(f"Switch is currently {status}. Will close after 5 minutes.")
             send_command("on")
-        else :
+        #else :
             #logger.info(f"~{time}")
 
 
