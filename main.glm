@@ -23,7 +23,7 @@ module connection;
 object helics_msg {
     name gld_hlc_conn;
     parent load_switch;
-    configure switch_test_02.json;
+    configure mainglm.json;
 }
 
 
@@ -169,9 +169,9 @@ object load {
     name feeder_load;
     nominal_voltage 400; //7216.88;
     phases ABC;
-    constant_power_A 25-5j; //3454.81+1583.42j;  // Reduced load values
-    constant_power_B 25+5j;
-    constant_power_B 25+10j;
+    constant_power_A 700+150j; //25-5j;   // Reduced load values
+    constant_power_B 700+150j; //25+5j;
+    constant_power_B 700-150j; //25+10j;
 }
 
 

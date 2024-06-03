@@ -4,7 +4,7 @@
     "coreType": "zmq",
     "name": "gld_sw",
     "offset": "0.0",
-    "period": 60,
+    "period": 30,
     "timeDelta": "1.0",
     "logfile": "output2.log",
     "log_level": "warning",
