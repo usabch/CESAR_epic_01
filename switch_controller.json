@@ -3,7 +3,7 @@
     "coreName": "SwController Federate",
     "coreType": "zmq",
     "name": "SwControllerSim",
-    "offset": "0.0",
+    "offset": "2.0",
     "period": 30,
     "timeDelta": "1.0",
     "logfile": "output1.log",

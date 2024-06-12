@@ -10,7 +10,6 @@ import math
 import numpy
 import time
 import helics as h
-import random
 import logging
 import argparse
 
@@ -18,6 +17,38 @@ logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
+################################
+import requests
+import json
+import threading
+
+# URLs for getting device status and controlling the device
+url_status = "https://api.smartthings.com/v1/devices/a1a25a20-24a2-41a6-abe5-c7200337552b/status"
+url_control = "https://api.smartthings.com/v1/devices/a1a25a20-24a2-41a6-abe5-c7200337552b/commands"
+
+status = ""
+switch_status = ""
+hours = 1 
+
+headers = {
+    'Authorization': 'Bearer 0dc70a10-bda8-4d39-a1ee-67dc45e91595',
+    'Content-Type': 'application/json'
+}
+
+def get_device_status():
+    response = requests.get(url_status, headers=headers)
+    data = response.json()
+    # Adjust the following line based on the actual structure of the JSON response
+    status = data['components']['main']['switch']['switch']['value']
+
+    if status == "on":
+        switch_status = "CLOSED"
+    elif status == "off":
+        switch_status = "OPEN"
+
+    return switch_status
+
+#################################
 
 
 def destroy_federate(fed):
@@ -66,7 +97,7 @@ if __name__ == "__main__":
 
 
     plotting = False ## Adjust this flag to visulaize the control actions aas the simulation progresses
-    hours = 1
+   
     total_inteval = int(60 * 60 * hours)
     grantedtime = -1
     update_interval = 30 #1 * 60 ## Adjust this to change EV update interval
@@ -79,11 +110,11 @@ if __name__ == "__main__":
 
     for t in range(0, total_inteval, update_interval):
 
-        ############################   Publishing Voltage to GridLAB-D #######################################################
-        if (((grantedtime% 300 ==0) or (grantedtime% 300 ==180))and (grantedtime >0)): #close switch every 5 min
-            switch_state = "CLOSED"
-            if (grantedtime% 300 ==180): #to turn it open after 3min
-                switch_state = "OPEN"
+        ############################   Publishing switch status to GridLAB-D #######################################################
+        #if (((grantedtime% 300 ==0) or (grantedtime% 300 ==180))and (grantedtime >0)): #close switch every 5 min
+        #    switch_state = "CLOSED"
+        if (grantedtime% 30 ==2): #update status very 30sec
+            switch_state = get_device_status()
             logger.info("{}: switch state val = {} ".format(federate_name, switch_state))
             for i in range(0, pubkeys_count):
             #for i in range(0, 1):
@@ -100,24 +131,24 @@ if __name__ == "__main__":
 
         logger.info("{} - {}".format(grantedtime, t))
         while grantedtime < t:
-            grantedtime = h.helicsFederateRequestTime(fed, t)
+            grantedtime = h.helicsFederateRequestTime(fed, t+2)  #offset included
 
-        #############################   Subscribing to Feeder Load from to GridLAB-D ##############################################
+        #############################   Subscribing to Load current from to GridLAB-D ##############################################
 
         for i in range(0, subkeys_count):
             sub = subid["m{}".format(i)]
             demand = h.helicsInputGetComplex(sub)
-            rload = demand.real *1000;
-            iload = demand.imag * 1000;
+            rload = demand.real *1000
+            iload = demand.imag * 1000
         logger.info("{}: Federate Granted Time = {}".format(federate_name,grantedtime))
         logger.info("{}: Load current consumption = {} Amps".format(federate_name, complex(round(rload,2), round(iload,2)) / 1000))
         # print(voltage_plot,real_demand)
 
      
     ##############################   Terminating Federate   ########################################################
-    t = 60 * 60 * 24
+    t = 60 * 60 * hours
     while grantedtime < t:
-        grantedtime = h.helicsFederateRequestTime(fed, t)
+        grantedtime = h.helicsFederateRequestTime(fed, t+2) #offset included
     logger.info("{}: Destroying federate".format(federate_name))
     destroy_federate(fed)
     logger.info("{}: Done!".format(federate_name))
