@@ -118,10 +118,11 @@ if __name__ == "__main__":
 
     # power_flow
     fig = plt.figure()
-    ax1 = fig.add_subplot(4, 1, 1)
-    ax2 = fig.add_subplot(4, 1, 2)
-    ax3 = fig.add_subplot(4, 1, 3)
-    ax4 = fig.add_subplot(4, 1, 4)
+    ax1 = fig.add_subplot(3, 2, 1) #col1
+    ax2 = fig.add_subplot(3, 2, 3) #col1
+    ax3 = fig.add_subplot(3, 2, 5) #col1
+    ax4 = fig.add_subplot(3, 2, 2) #col2
+    ax5 = fig.add_subplot(3, 2, 4) #col2
     voltage_plot = []
     voltage_plot2 = []
     voltage_plot_tot = []
@@ -233,27 +234,39 @@ if __name__ == "__main__":
             ax1.clear()
             ax1.plot(pf_time, voltage_plot, "r--")
             ax1.set_xlim([0, 25])
-            ax1.set_ylabel("Voltage [in kV]")
+            ax1.set_ylabel("Voltage-bus 118 [in kV]")
             ax1.set_xlabel("Time [in hours]")
+            
             ax2.clear()
             ax2.plot(pf_time, real_demand[:, cosim_bus], "k")
             ax2.set_xlim([0, 25])
-            ax2.set_ylabel("Load from distribution [in MW]")
+            ax2.set_ylabel("Load from distribution-1 [in MW]")
             ax2.set_xlabel("Time [in hours]")
+            
             ax3.clear()
-            ax3.plot(pf_time, real_demand[:, cosim_bus2], "b")
+            ax3.plot(pf_time, (real_demand[:, cosim_bus2] + real_demand[:, cosim_bus2]), "g--")
             ax3.set_xlim([0, 25])
-            ax3.set_ylabel("Load from distribution [in MW]")
-            ax3.set_xlabel("Time [in hours]")
+            ax3.set_ylabel("demand_tot (1+2) [in MW]")
+            ax3.set_xlabel("Time_tot [in hours]")
+            
             ax4.clear()
-            ax4.plot(pf_time, (real_demand[:, cosim_bus2] + real_demand[:, cosim_bus2]), "g--")
+            ax4.plot(pf_time, voltage_plot2, "r--")
             ax4.set_xlim([0, 25])
-            ax4.set_ylabel("Voltage_tot [in kV]")
-            ax4.set_xlabel("Time_tot [in hours]")
+            ax4.set_ylabel("Voltage-bus117 [in kV]")
+            ax4.set_xlabel("Time [in hours]")
+            
+           
+            ax5.clear()
+            ax5.plot(pf_time, real_demand[:, cosim_bus2], "b")
+            ax5.set_xlim([0, 25])
+            ax5.set_ylabel("Load from distribution-2 [in MW]")
+            ax5.set_xlabel("Time [in hours]")
+            
             ax1.grid()
             ax2.grid()
             ax3.grid()
             ax4.grid()
+            ax5.grid()
             plt.show(block=False)
             plt.pause(0.01)
         x = x + 1
