@@ -1,17 +1,17 @@
 {
     "coreInit": "--federates=1",
-    "coreName": "Distribution Federate 2",
+    "coreName": "Distribution Federate 3",
     "coreType": "zmq",
-    "name": "DistributionSim2",
+    "name": "DistributionSim3",
     "offset": "0.0",
     "period": 60,
     "timeDelta": "1.0",
-    "logfile": "output2.log",
+    "logfile": "output3.log",
     "log_level": "warning",
     "publications" : [
           {
                "global" : true,
-               "key" : "IEEE_123_feeder_0/totalLoad2",
+               "key" : "IEEE_123_feeder_0/totalLoad3",
                "type" : "complex",
                "unit" : "VA",
                "info" : {
@@ -23,7 +23,7 @@
     "subscriptions" : [
           {
                "required": true,
-               "key" : "TransmissionSim/transmission_voltage2",
+               "key" : "TransmissionSim/transmission_voltage3",
                "type" : "complex",
                "unit" : "V",
                "info" : {
@@ -33,7 +33,7 @@
           },
           {
                "required": true,
-               "key" : "TransmissionSim/testvalue2",
+               "key" : "TransmissionSim/testvalue3",
                "type" : "double",
                "info" : {
                     "object" : "l1_tn_loadshape",

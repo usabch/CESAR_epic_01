@@ -29,6 +29,16 @@
          "key": "TransmissionSim/testvalue2",
          "type": "double",
          "global": true
+          },
+         {
+         "key": "TransmissionSim/transmission_voltage3",
+         "type": "complex",
+         "global": true
+          },
+          {
+         "key": "TransmissionSim/testvalue3",
+         "type": "double",
+         "global": true
           }
 
     ],
@@ -40,6 +50,11 @@
         },
         {
         "key": "IEEE_123_feeder_0/totalLoad2",
+        "type": "complex",
+        "required": true
+        }
+	{
+        "key": "IEEE_123_feeder_0/totalLoad3",
         "type": "complex",
         "required": true
         }

@@ -19,6 +19,12 @@
             "host":"localhost",
             "name":"1a_2GridLABD"
         }
+    	{
+            "directory":".",
+            "exec":"gridlabd 1a_grid_03.glm",
+            "host":"localhost",
+            "name":"1a_3GridLABD"
+        }
     ],
     "name":"1a-T-D-Cosimulation-HELICSRunner"
 }

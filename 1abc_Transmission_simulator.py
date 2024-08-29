@@ -114,22 +114,28 @@ if __name__ == "__main__":
     cosim_bus = Cosim_bus_number - 1  ## Do not change this line
     Cosim_bus_number2 = 117
     cosim_bus2 = Cosim_bus_number2 - 1  ## Do not change this line
+    Cosim_bus_number3 = 29
+    cosim_bus2 = Cosim_bus_number3 - 1  ## Do not change this line
     load_amplification_factor = 15
 
     # power_flow
     fig = plt.figure()
-    ax1 = fig.add_subplot(3, 2, 1) #col1
-    ax2 = fig.add_subplot(3, 2, 3) #col1
-    ax3 = fig.add_subplot(3, 2, 5) #col1
-    ax4 = fig.add_subplot(3, 2, 2) #col2
-    ax5 = fig.add_subplot(3, 2, 4) #col2
+    ax1 = fig.add_subplot(3, 2, 1)
+    ax2 = fig.add_subplot(3, 2, 2)
+    ax3 = fig.add_subplot(3, 2, 3)
+    ax4 = fig.add_subplot(3, 2, 4)
+    ax5 = fig.add_subplot(3, 2, 5)
+    ax6 = fig.add_subplot(3, 2, 6)
+	
     voltage_plot = []
     voltage_plot2 = []
+    voltage_plot3 = []
     voltage_plot_tot = []
     x = 0
     k = 0
     voltage_cosim_bus = (ppc["bus"][cosim_bus, 7] * ppc["bus"][cosim_bus, 9]) * 1.043
     voltage_cosim_bus2 = (ppc["bus"][cosim_bus2, 7] * ppc["bus"][cosim_bus2, 9]) * 1.043
+    voltage_cosim_bus3 = (ppc["bus"][cosim_bus3, 7] * ppc["bus"][cosim_bus3, 9]) * 1.043
     test_val =0
 
     #########################################   Starting Co-simulation  ####################################################
@@ -140,16 +146,21 @@ if __name__ == "__main__":
 
         voltage_gld = complex(voltage_cosim_bus * 1000)
         voltage_gld2 = complex(voltage_cosim_bus2 * 1000)
+        voltage_gld3 = complex(voltage_cosim_bus3 * 1000)
         logger.info("{}: Substation Voltage to the Distribution System1 = {} kV".format(federate_name, round(abs(voltage_gld)/1000, 2)))
         logger.info("{}: Substation Voltage to the Distribution System2 = {} kV".format(federate_name, round(abs(voltage_gld2)/1000, 2)))
+        logger.info("{}: Substation Voltage to the Distribution System3 = {} kV".format(federate_name, round(abs(voltage_gld3)/1000, 2)))
         for i in range(0, pubkeys_count):
         #for i in range(0, 1):
             pub = pubid["m{}".format(i)]
             if i == 0:
             	status = h.helicsPublicationPublishComplex(pub, voltage_gld.real, voltage_gld.imag)
             	logger.info("..........m{}- {}: i, status".format(i, status))
-            elif i == 2:
+            elif i == 1:
             	status = h.helicsPublicationPublishComplex(pub, voltage_gld2.real, voltage_gld2.imag)
+            	logger.info("..........m{}- {}: i, status".format(i, status))
+            elif i == 2:
+            	status = h.helicsPublicationPublishComplex(pub, voltage_gld3.real, voltage_gld3.imag)
             	logger.info("..........m{}- {}: i, status".format(i, status))
             else:
             	status = h.helicsPublicationPublishComplex(pub, test_val)
@@ -173,6 +184,7 @@ if __name__ == "__main__":
         logger.info("{}: Federate Granted Time = {}".format(federate_name,grantedtime))
         logger.info("{}: Substation Load from Distribution System1 = {} kW".format(federate_name, complex(round(rload[0],2), round(iload[0],2)) / 1000))
         logger.info("{}: Substation Load from Distribution System2 = {} kW".format(federate_name, complex(round(rload[1],2), round(iload[1],2)) / 1000))
+        logger.info("{}: Substation Load from Distribution System3 = {} kW".format(federate_name, complex(round(rload[2],2), round(iload[2],2)) / 1000))
         # print(voltage_plot,real_demand)
 
         actual_demand = peak_demand * bus_profiles[x, :]
@@ -182,6 +194,8 @@ if __name__ == "__main__":
         ppc["bus"][cosim_bus, 3] = iload[0] * load_amplification_factor / 1000000
         ppc["bus"][cosim_bus2, 2] = rload[1] * load_amplification_factor / 1000000
         ppc["bus"][cosim_bus2, 3] = iload[1] * load_amplification_factor / 1000000
+        ppc["bus"][cosim_bus3, 2] = rload[2] * load_amplification_factor / 1000000
+        ppc["bus"][cosim_bus3, 3] = iload[2] * load_amplification_factor / 1000000
         ppopt = ppoption(PF_ALG=1, OUT_ALL=0, VERBOSE=1)
 
         logger.info("{}: Current AC-PF TIme is {} and Next AC-OPF time is {}".format(federate_name, time_pf[x], time_opf[k]))
@@ -213,11 +227,13 @@ if __name__ == "__main__":
                 real_demand = results_pf["bus"][:, 2]
                 distribution_load = [rload[0] / 1000000]
                 distribution_load.append ([rload[1] / 1000000])
+                distribution_load.append ([rload[2] / 1000000])
             else:
                 voltages = numpy.vstack((voltages, results_pf["bus"][:, 7]))
                 real_demand = numpy.vstack((real_demand, results_pf["bus"][:, 2]))
                 distribution_load.append(rload[0] / 1000000)
                 distribution_load.append(rload[1] / 1000000)
+                distribution_load.append(rload[2] / 1000000)
                 pf_time = time_pf[0 : x + 1] / 3600
 
             voltage_cosim_bus = results_pf["bus"][cosim_bus, 7] * results_pf["bus"][cosim_bus, 9]
@@ -225,8 +241,12 @@ if __name__ == "__main__":
 
             voltage_cosim_bus2 = results_pf["bus"][cosim_bus2, 7] * results_pf["bus"][cosim_bus2, 9]
             voltage_plot2.append(voltage_cosim_bus2)
+			
 
-            voltage_plot_tot.append(voltage_cosim_bus + voltage_cosim_bus2)
+            voltage_cosim_bus3 = results_pf["bus"][cosim_bus3, 7] * results_pf["bus"][cosim_bus3, 9]
+            voltage_plot3.append(voltage_cosim_bus3)
+
+            voltage_plot_tot.append(voltage_cosim_bus + voltage_cosim_bus2 + voltage_cosim_bus3)
 
         ######################### Plotting the Voltages and Load of the Co-SIM bus ##############################################
 
@@ -236,37 +256,44 @@ if __name__ == "__main__":
             ax1.set_xlim([0, 25])
             ax1.set_ylabel("Voltage-bus 118 [in kV]")
             ax1.set_xlabel("Time [in hours]")
-            
+			
             ax2.clear()
             ax2.plot(pf_time, real_demand[:, cosim_bus], "k")
             ax2.set_xlim([0, 25])
             ax2.set_ylabel("Load from distribution-1 [in MW]")
             ax2.set_xlabel("Time [in hours]")
-            
-            ax3.clear()
-            ax3.plot(pf_time, (real_demand[:, cosim_bus2] + real_demand[:, cosim_bus2]), "g--")
+			
+			ax3.clear()
+            ax3.plot(pf_time, voltage_plot2, "r--")
             ax3.set_xlim([0, 25])
-            ax3.set_ylabel("demand_tot (1+2) [in MW]")
-            ax3.set_xlabel("Time_tot [in hours]")
-            
+            ax3.set_ylabel("Voltage-bus117 [in kV]")
+            ax3.set_xlabel("Time [in hours]")
+			
             ax4.clear()
-            ax4.plot(pf_time, voltage_plot2, "r--")
+            ax4.plot(pf_time, real_demand[:, cosim_bus2], "k")
             ax4.set_xlim([0, 25])
-            ax4.set_ylabel("Voltage-bus117 [in kV]")
+            ax4.set_ylabel("Load from distribution-2 [in MW]")
             ax4.set_xlabel("Time [in hours]")
-            
-           
-            ax5.clear()
-            ax5.plot(pf_time, real_demand[:, cosim_bus2], "b")
+
+			ax5.clear()
+            ax5.plot(pf_time, voltage_plot3, "r--")
             ax5.set_xlim([0, 25])
-            ax5.set_ylabel("Load from distribution-2 [in MW]")
+            ax5.set_ylabel("Voltage-bus29 [in kV]")
             ax5.set_xlabel("Time [in hours]")
-            
+			
+            ax6.clear()
+            ax6.plot(pf_time, real_demand[:, cosim_bus3], "k")
+            ax6.set_xlim([0, 25])
+            ax6.set_ylabel("Load from distribution-3 [in MW]")
+            ax6.set_xlabel("Time [in hours]")
+
             ax1.grid()
             ax2.grid()
             ax3.grid()
             ax4.grid()
             ax5.grid()
+            ax6.grid()
+			
             plt.show(block=False)
             plt.pause(0.01)
         x = x + 1
