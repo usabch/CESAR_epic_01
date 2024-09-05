@@ -1,7 +1,7 @@
 clock {
     timezone PST8;
-    starttime '2013-08-28 06:00:00';
-    stoptime '2013-08-28 20:00:00';
+    starttime '2013-08-28 00:00:00';
+    stoptime '2013-08-29 00:00:00';
 }
 
 #include "include/schedules/appliance_schedules.glm";
@@ -2043,6 +2043,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -2099,6 +2100,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2155,6 +2157,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2211,6 +2214,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2267,9 +2271,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
-    constant_power_A 2*PowerValA;
-    constant_power_B 2*PowerValB;
-    constant_power_C 2*PowerValC;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2326,6 +2330,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -2382,6 +2387,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -2438,6 +2444,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -2494,6 +2501,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -2550,6 +2558,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2606,6 +2615,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2662,6 +2672,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -2718,6 +2729,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -2774,6 +2786,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -2830,6 +2843,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2886,6 +2900,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2942,6 +2959,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -2998,9 +3018,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
-    constant_power_A 3*PowerValA;
-    constant_power_B 3*PowerValB;
-    constant_power_C 3*PowerValC;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3057,6 +3077,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3113,6 +3134,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3169,6 +3191,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -3225,6 +3248,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3281,9 +3305,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
-    constant_power_A 4*PowerValA;
-    constant_power_B 4*PowerValB;
-    constant_power_C 4*PowerValC;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3293,6 +3317,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -3349,6 +3374,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -3405,6 +3431,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -3461,6 +3488,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3517,9 +3545,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
-    constant_power_A 5*PowerValA;
-    constant_power_B 5*PowerValB;
-    constant_power_C 5*PowerValC;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3576,6 +3604,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -3632,6 +3661,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -3688,6 +3718,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -3768,9 +3799,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
-    constant_power_A 10*PowerValA;
-    constant_power_B 10*PowerValB;
-    constant_power_C 10*PowerValC;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3780,9 +3811,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
-    constant_power_A 0.1*PowerValA;
-    constant_power_B 0.1*PowerValB;
-    constant_power_C 0.1*PowerValC;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -3814,7 +3845,7 @@ object triplex_meter {
     nominal_voltage 120.0;
 };
 
-object triplex_node {0 * 1-3,10-12 1-5
+object triplex_node {
     name l50_tpn;
     phases CS;
     voltage_1 120.0;
@@ -3957,9 +3988,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
-    constant_power_A 5*PowerValA;
-    constant_power_B 5*PowerValB;
-    constant_power_C 5*PowerValC;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4075,6 +4106,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4131,6 +4165,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -4187,6 +4222,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -4243,6 +4279,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4299,6 +4338,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4355,6 +4397,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4411,6 +4456,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4479,6 +4527,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4535,6 +4586,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -4591,6 +4643,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -4647,6 +4700,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -4703,6 +4757,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -4759,6 +4814,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4815,6 +4871,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4871,6 +4928,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4939,6 +4997,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -4995,6 +5056,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5051,6 +5115,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5107,6 +5174,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5163,6 +5233,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5219,6 +5292,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5275,6 +5349,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5331,6 +5406,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5387,6 +5465,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5443,6 +5524,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -5499,6 +5581,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -5555,6 +5638,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5611,6 +5695,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -5667,6 +5752,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5723,6 +5811,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -5779,6 +5868,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5835,6 +5927,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5891,6 +5986,9 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
+    constant_power_B PowerValB;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -5947,6 +6045,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -6003,6 +6102,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -6059,6 +6159,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_C PowerValC;
     nominal_voltage 2401.7771;
 };
 
@@ -6115,6 +6216,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -6171,6 +6273,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_B PowerValB;
     nominal_voltage 2401.7771;
 };
 
@@ -6227,6 +6330,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -6283,6 +6387,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -6339,6 +6444,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -6395,6 +6501,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 
@@ -6451,6 +6558,7 @@ object load {
     voltage_A 2401.7771;
     voltage_B -1200.8886-2080.000j;
     voltage_C -1200.8886+2080.000j;
+    constant_power_A PowerValA;
     nominal_voltage 2401.7771;
 };
 

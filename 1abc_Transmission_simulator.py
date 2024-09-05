@@ -119,10 +119,10 @@ if __name__ == "__main__":
     # power_flow
     fig = plt.figure()
     ax1 = fig.add_subplot(3, 2, 1) #col1
-    ax2 = fig.add_subplot(3, 2, 3) #col1
-    ax3 = fig.add_subplot(3, 2, 5) #col1
-    ax4 = fig.add_subplot(3, 2, 2) #col2
-    ax5 = fig.add_subplot(3, 2, 4) #col2
+    ax2 = fig.add_subplot(3, 2, 2) #col2
+    ax3 = fig.add_subplot(3, 2, 3) #col1
+    ax4 = fig.add_subplot(3, 2, 4) #col2
+    #ax5 = fig.add_subplot(3, 2, 5) #col1
     voltage_plot = []
     voltage_plot2 = []
     voltage_plot_tot = []
@@ -146,15 +146,16 @@ if __name__ == "__main__":
         #for i in range(0, 1):
             pub = pubid["m{}".format(i)]
             if i == 0:
-            	status = h.helicsPublicationPublishComplex(pub, voltage_gld.real, voltage_gld.imag)
-            	logger.info("..........m{}- {}: i, status".format(i, status))
-            elif i == 2:
-            	status = h.helicsPublicationPublishComplex(pub, voltage_gld2.real, voltage_gld2.imag)
-            	logger.info("..........m{}- {}: i, status".format(i, status))
+                status = h.helicsPublicationPublishComplex(pub, voltage_gld.real, voltage_gld.imag)
+                logger.info("..........m{}- {}: i, status".format(i, status))
+                #pubkeys of voltages in multiple of two becuse of testvalues
+            elif i == 2: 
+                status = h.helicsPublicationPublishComplex(pub, voltage_gld2.real, voltage_gld2.imag)
+                logger.info("..........m{}- {}: i, status".format(i, status))
             else:
-            	status = h.helicsPublicationPublishComplex(pub, test_val)
-            	logger.info("..........{}: test_val".format(test_val))
-            	test_val= test_val+ 2.505
+                status = h.helicsPublicationPublishComplex(pub, test_val)
+                logger.info("..........{}: test_val".format(test_val))
+                test_val= test_val+ 2.505
         # status = h.helicsEndpointSendEventRaw(epid, "fixed_price", 10, t)
 
         logger.info("{} - {}".format(grantedtime, t))
@@ -231,42 +232,42 @@ if __name__ == "__main__":
         ######################### Plotting the Voltages and Load of the Co-SIM bus ##############################################
 
         if x > 0:
+            x_lim_max = 25
             ax1.clear()
             ax1.plot(pf_time, voltage_plot, "r--")
-            ax1.set_xlim([0, 25])
+            ax1.set_xlim([0, x_lim_max])
             ax1.set_ylabel("Voltage-bus 118 [in kV]")
             ax1.set_xlabel("Time [in hours]")
             
             ax2.clear()
-            ax2.plot(pf_time, real_demand[:, cosim_bus], "k")
-            ax2.set_xlim([0, 25])
-            ax2.set_ylabel("Load from distribution-1 [in MW]")
+            ax2.plot(pf_time, voltage_plot2, "r--")
+            ax2.set_xlim([0, x_lim_max])
+            ax2.set_ylabel("Voltage-bus117 [in kV]")
             ax2.set_xlabel("Time [in hours]")
             
             ax3.clear()
-            ax3.plot(pf_time, (real_demand[:, cosim_bus2] + real_demand[:, cosim_bus2]), "g--")
-            ax3.set_xlim([0, 25])
-            ax3.set_ylabel("demand_tot (1+2) [in MW]")
-            ax3.set_xlabel("Time_tot [in hours]")
-            
+            ax3.plot(pf_time, real_demand[:, cosim_bus], "k")
+            ax3.set_xlim([0, x_lim_max])
+            ax3.set_ylabel("Load from distribution-1 [in MW]")
+            ax3.set_xlabel("Time [in hours]")
+           
             ax4.clear()
-            ax4.plot(pf_time, voltage_plot2, "r--")
-            ax4.set_xlim([0, 25])
-            ax4.set_ylabel("Voltage-bus117 [in kV]")
+            ax4.plot(pf_time, real_demand[:, cosim_bus2], "b")
+            ax4.set_xlim([0, x_lim_max])
+            ax4.set_ylabel("Load from distribution-2 [in MW]")
             ax4.set_xlabel("Time [in hours]")
             
-           
-            ax5.clear()
-            ax5.plot(pf_time, real_demand[:, cosim_bus2], "b")
-            ax5.set_xlim([0, 25])
-            ax5.set_ylabel("Load from distribution-2 [in MW]")
-            ax5.set_xlabel("Time [in hours]")
+            #ax5.clear()
+            #ax5.plot(pf_time, (real_demand[:, cosim_bus2] + real_demand[:, cosim_bus2]), "g--")
+            #ax5.set_xlim([0, x_lim_max])
+            #ax5.set_ylabel("demand_tot (1+2) [in MW]")
+            #ax5.set_xlabel("Time_tot [in hours]")
             
             ax1.grid()
             ax2.grid()
             ax3.grid()
             ax4.grid()
-            ax5.grid()
+            #ax5.grid()
             plt.show(block=False)
             plt.pause(0.01)
         x = x + 1

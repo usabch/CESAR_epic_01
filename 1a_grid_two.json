@@ -3,7 +3,7 @@
     "coreName": "Distribution Federate 2",
     "coreType": "zmq",
     "name": "DistributionSim2",
-    "offset": 21600,
+    "offset": 0,
     "period": 60,
     "timeDelta": "1.0",
     "logfile": "output2.log",
